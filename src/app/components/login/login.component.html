@@ -1,0 +1,53 @@
+<div class="jumbotron jumbotron-fluid">
+    <div class="container text-center">
+        <h1 class="display-4"><b>Login</b></h1>
+        <p class="lead">Entra a nuestro foro para poder hacer
+            consultas de Lorem, ipsum dolor sit amet consectetur adipisicing elit. 
+            Unde nulla autem, eum quos error rerum ratione animi illum et optio nisi
+            non quae, consequatur consectetur quasi quaerat delectus reiciendis reprehenderit.
+        </p>
+    </div>
+</div>
+
+<div class="container">
+
+    <div *ngIf="status == 'error'" class="alert alert-danger">
+        Error al Ingresar <b>TIPO ({{ typeerror }})</b> 
+    </div>
+
+    <div *ngIf="status == 'success'" class="alert alert-success">
+        Usuario Loogueda Correctamente <br>
+        Redireccionando a HOME ...
+        <img src="assets/img/flechacircle.svg" width="20" height="20" alt="img Chargued" class="w3-spin"> 
+    </div>
+   
+
+    <form #formLogin="ngForm" (ngSubmit)="login(formLogin)">
+        <div class="form-group">
+            <label for="emaillogin">Email</label>
+            <input type="email" class="form-control" id="emaillogin"  
+            name="email" #email="ngModel" [(ngModel)]="user.email"
+            aria-describedby="emailHelp" placeholder="Introduce tu email" 
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required/>
+
+            <small *ngIf="email.invalid && email.touched" id="emailHelp" 
+                    class="form-text text-monospace w3-text-red">
+                Email no Valido</small>
+        </div>
+
+        <div class="form-group">
+            <label for="passwordlogin">Password</label>
+            <input type="password" class="form-control" id="passwordlogin" 
+            name="passwrod" #passwrod="ngModel" [(ngModel)]="user.password"
+            placeholder="Introduce tu Password" aria-describedby="passHelp" required>
+
+            <small *ngIf="passwrod.invalid && passwrod.touched" id="passHelp" 
+                    class="form-text text-monospace w3-text-red">
+                Password requerido</small>
+        </div>
+
+        <button type="submit" class="btn btn-success btn-block" 
+        [disabled]="!formLogin.valid">Entrar</button>
+
+    </form>
+</div>

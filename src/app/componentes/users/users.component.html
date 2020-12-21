@@ -1,0 +1,30 @@
+<div class="col-lg-12 topic-box animated fadeInRightBig rapidoome" *ngIf="users; else loaD">
+    <ul class="list-group list-comments">
+        <li class="list-group-item" *ngFor="let user of users">
+            <div class="avatar_mask_profiles mr-3 p-0 float-left">
+                <img src="assets/img/avatar.png" 
+                alt="Imagen Avatar User" *ngIf="user.image == null">
+
+
+                <img src="{{ urlapi + '/avatar/' + user.image }}" 
+                alt="Imagen Avatar User" *ngIf="user.image">
+            </div>
+
+            <h2>
+                 <a [routerLink]="['/perfil', user._id]">{{ user.name + ' ' + user.surname }}</a>
+            </h2>
+            <a [routerLink]="['/perfil', user._id]" class="btn btn-success btn-sm float-right">
+               <h5>
+                   Ver Perfil
+               </h5>
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+<ng-template #loaD>
+        <h4>Cargando</h4>
+        <img src="assets/img/flechacircle.svg" width="40" height="40" 
+        alt="img Chargued" class="w3-spin"> 
+</ng-template>

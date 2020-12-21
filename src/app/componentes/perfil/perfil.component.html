@@ -1,0 +1,42 @@
+<div class="col-md-12 my-5 animated fadeInRightBig rapidoome" 
+    *ngIf="topics && !loading; else loaD">
+    <div class="avatar_mask_profiles mr-3 p-0 float-left">
+        <img src="assets/img/avatar.png" 
+        alt="Imagen Avatar User" *ngIf="user.image == null">
+
+
+        <img src="{{ url + '/avatar/' + user.image }}" 
+        alt="Imagen Avatar User" *ngIf="user.image">
+    </div>
+    <h1>{{ user.name + ' ' + user.surname }}</h1>
+   
+    <div class="clearfix"></div> <hr>
+    <ul class="list-group list-topics">
+        <li class="list-group-item" *ngFor="let topic of topics">
+            <h4>
+                <a [routerLink]="[ '/tema', topic._id]">
+                    {{ topic.title }}
+                </a>
+            </h4>
+            <span class="badge badge-light ml-2"> 
+                {{ topic.date | amLocale: 'es' | amTimeAgo }}
+            </span>
+            <a  [routerLink]="[ '/tema', topic._id]" 
+                class="d-block btn btn-sm btn-success float-right mx-auto">
+                Leer
+            </a>
+        </li>
+   
+      </ul>
+
+</div>
+<ng-template #loaD>
+    <div *ngIf="!nouser">
+        <h4>Cargando</h4>
+        <img src="assets/img/flechacircle.svg" width="20" height="20" 
+        alt="img Chargued" class="w3-spin"> 
+    </div>
+    <div class="alert alert-danger" *ngIf="nouser">
+        No existe el usuario Solitado
+    </div>
+</ng-template>

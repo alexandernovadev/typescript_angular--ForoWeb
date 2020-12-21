@@ -1,0 +1,93 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" [routerLink]="['home']">
+        <img src="/assets/img/logo.png" width="40" height="40" class="d-inline-block align-top"
+             alt=""/>
+        Foro B
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" 
+            data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" [routerLink]="['home']">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['temas',1]">Ver Temas</a>
+            </li>
+            
+            <li class="nav-item" *ngIf="identity != null">
+                <a class="nav-link" [routerLink]="['panel/crear']">Crear Temas</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['usuarios']">Compañeros</a>
+            </li>
+
+            <li class="nav-item pl-5">
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar..." 
+                    aria-label="Search" #search (keydown.enter)="buscar(search.value)"/>
+                </form>
+            </li>
+        </ul>
+
+       
+        <ul *ngIf="identity == null" class="navbar-nav navbar-right">
+            <li class="nav-item">
+                <a class="nav-link" [routerLink]="['registro']">Registrate</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link"  [routerLink]="['login']">Login</a>
+            </li>
+        </ul>
+
+        <ul *ngIf="identity != null"  class="navbar-nav navbar-right" style="margin-right: 100px">
+
+            <li *ngIf="identity && identity.image" class="nav-item">
+                <div class="avatar_mask m-0 p-0 ">
+                    <img src="{{ urlapi + '/avatar/' + identity.image }}" 
+                    alt="Imagen Avatar User">
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" 
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{ identity.name | titlecase }} &nbsp; {{ identity.surname | titlecase}} 
+                </a>
+                <div class="pointer dropdown-menu animated fadeInDownBig rapidoome " 
+                     aria-labelledby="navbarDropdown">
+                <a class="pointer dropdown-item" [routerLink]="['/panel']">
+                    <i class="material-icons iconspacee">
+                        view_compact
+                    </i>
+                    Panel de Usuario
+                </a>
+                <a class="pointer dropdown-item"  [routerLink]="['/perfil', identity._id]">
+                    <i class="material-icons iconspacee">
+                        person_pin
+                    </i>
+                    Mi perfil
+                </a>
+                <a class="pointer dropdown-item" [routerLink]="['/ajustes']">
+                    <i class="material-icons iconspacee">
+                        build
+                    </i>
+                    Ajustes
+                </a>
+                <div class="dropdown-divider"></div>
+                <a class="pointer dropdown-item" (click)="logout()">
+                    <i class="material-icons iconspacee">
+                        power_settings_new
+                    </i>
+                    Cerrar Sesion
+                </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,74 @@
+<ng-template #LoaD>
+    <div *ngIf="topic">
+        <h3>Cargando...</h3>
+        <img src="assets/img/flechacircle.svg" width="40" height="40" 
+        alt="img Chargued" class="w3-spin"> 
+    </div>
+</ng-template>
+
+<div class="alert alert-danger" *ngIf="erroNOtopic == 'error'">
+    Este Tema no existe 
+</div>
+
+<div class="col-lg-10" *ngIf="loading === false && topic; else LoaD">
+    <h3>Editar Tema</h3>
+    <hr>
+
+    <div class="alert alert-danger" *ngIf="status == 'error'">
+        El Tema NO ha sido Editado correctamente
+    </div>
+    
+    <div class="alert alert-success" *ngIf="status == 'success'">
+        El Tema ha sido Editado correctamente
+    </div>
+
+    <form  #editTopicUser="ngForm" (ngSubmit)="editTopic(editTopicUser)">
+        <div class="form-group">
+            <label for="name">Titulo</label>
+            <input type="text" name="title" #title="ngModel" id="name"
+            [(ngModel)]="topic.title" class="form-control"
+            pattern="[a-zA-ZÀ-ÿ??¿ ]+" required/>
+
+            <small *ngIf="!title.valid && title.touched" class="invalid-feddback d-block">
+                El Titulo no es valido
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="contenido">Contenido</label>
+            <textarea name="content" #content="ngModel" class="form-control" id="contenido"
+            [(ngModel)]="topic.content" required></textarea>
+            
+            <small *ngIf="!content.valid && content.touched" class="invalid-feddback d-block">
+                El Contenido no es valido
+            </small>
+        </div>
+        
+        <div class="form-group">
+            <label for="codigo">Pon tu Codigo</label>
+            <textarea name="code" #code="ngModel" class="form-control" id="codigo"
+            [(ngModel)]="topic.code"></textarea>
+            
+            <small *ngIf="!code.valid && code.touched" class="invalid-feddback d-block">
+                El Titulo no es valido
+            </small>
+        </div>
+
+        <div class="form-group">
+            <label for="languje">¿ De que lenguaje Hablas ?</label>
+            <textarea name="lang" #lang="ngModel" class="form-control" id="languje"
+            [(ngModel)]="topic.lang" required></textarea>
+            
+            <small *ngIf="!lang.valid && lang.touched" class="invalid-feddback d-block">
+                El Titulo no es valido
+            </small>
+        </div>
+
+        <button type="submit" class="pointer btn btn-success btn-block" 
+                [disabled]="!editTopicUser.valid">
+            Editar
+        </button>
+    </form>
+
+
+</div> 

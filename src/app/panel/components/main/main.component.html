@@ -1,0 +1,24 @@
+<div class="row my-5 animated zoomInDown faster ">
+
+    <div class="col-md-4 float-left">
+
+        <h3>Panel de Usuario</h3>
+        <hr>
+        <div class="w3-bar-block opcionespanel">
+            <a [routerLink]="['listado']" routerLinkActive="w3-amber" 
+                class="poniter w3-hover-amber w3-bar-item w3-button">
+                Mis temas
+            </a>
+            <a [routerLink]="['crear']" routerLinkActive="w3-amber" 
+                class="poniter w3-hover-amber w3-bar-item w3-button">
+                Crear Temas
+            </a>
+        </div> 
+    </div>
+
+    <div class="col-md-8">
+
+        <router-outlet></router-outlet>
+    </div>
+</div>
+
